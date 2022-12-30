@@ -1,0 +1,17 @@
+module structuralNEW1(X, Fstate);
+
+   input [1:4] X;
+
+   output Fstate;
+
+   wire [0:1] ANDout;
+   
+
+   and(ANDout[0], X[1], X[2], ~X[3]);
+   and(ANDout[1], ~X[1], ~X[2], ~X[3]);
+   or(Fstate, ANDout[0], ANDout[1]);
+
+
+
+
+endmodule

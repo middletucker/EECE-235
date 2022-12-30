@@ -1,0 +1,24 @@
+// Alarm Behavioral Code
+//Question 2
+//Lillian Tucker, EECE 235
+
+module hw6_struct( F_min, F_max, W,X,Y,Z ) ;
+
+  input W,X,Y,Z ; //HIGH if entry is open
+  output F_min, F_max ; //Alarms when HIGH
+  wire Min_OR_1, Min_OR_2, Min_OR_3    ;//Mins Outs
+  wire Max_AND_1, Max_AND_2, Max_AND_3 ;//Max Wires
+
+  //minterm
+   or(Min_OR_1,  W, ~X,  Y) ;
+   or(Min_OR_2, ~W, ~X,  Z) ;
+   or(Min_OR_3, ~W,  X, ~Y) ;
+  and(F_min, Min_OR_1, Min_OR_2, Min_OR_3) ;
+
+  //maxterm
+  and(Max_AND_1, ~W,  Y) ;
+  and(Max_AND_2, ~X, ~Y) ;
+  and(Max_AND_3,  W,  X, Z) ;
+   or(F_max, Max_AND_1, Max_AND_2, Max_AND_3) ;
+
+endmodule

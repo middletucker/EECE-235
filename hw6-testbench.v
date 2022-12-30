@@ -1,0 +1,31 @@
+//HW 6 Test Bench 
+//
+//Lillian Tucker, EECE 235
+
+`timescale 1ns/1ns
+
+module hw6_testbench();
+
+  reg clk; //generates a clock for the simulation
+
+  //input and output to the modules
+  reg [3:0] INS;
+  wire F_min_b, F_max_b ; //behavioral
+  wire F_min_s, F_max_s ; //structural
+ 
+  //use some procedural assignments to initialize variables
+  initial begin 
+ 	clk =  1 ;
+	INS = -1 ; //Ensures all values are low at start
+  end
+
+  always #2 clk = ~clk ;//inverts clock every 2 units of time
+
+  always @(posedge clk) //use the positive edge of clk to trigger this event (clock low->high)
+	INS = INS + 1;
+
+  //Sets up MUT ("module under test")
+  hw6_behavior MUT0(F_min_b, F_max_b, INS[3], INS[2], INS[1], INS[0]) ;
+  hw6_struct   MUT1(F_min_s, F_max_s, INS[3], INS[2], INS[1], INS[0]) ;
+
+endmodule
